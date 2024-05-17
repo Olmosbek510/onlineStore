@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c2616;
+            text-align: center;
+        }
+
+        .product {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .product img {
+            width: 80px;
+            height: 80px;
+            margin-right: 20px;
+            border-radius: 5px;
+        }
+
+        .product-info {
+            flex-grow: 1;
+        }
+
+        .product-info h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .product-info p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .price {
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .amount {
+            margin: 0 10px;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ffc107;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #ff9800;
+        }
+
+        .bottom-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Shopping Basket</h1>
+    <div class="basket">
+        <th:block th:each="product:${basketProducts}">
+            <div class="product">
+                <img th:attr="src=@{'data:image/png;base64,' + ${product.base64Photo()}}" alt="" style="max-width: 100px">
+                <div class="product-info">
+                    <h3 th:text="${product.product()}"></h3>
+                    <p th:text="${product.category()}"></p>
+                    <p th:text="${product.productPrice() + ' sum'}" class="price"></p>
+                    <p th:text="'Subtotal: ' + ${product.productPrice() * product.amount()}" class="subtotal"></p>
+                </div>
+                <div class="actions">
+                    <a th:href="'/basket/decrease/' + ${product.id()}" style="background: dimgray" class="btn">-</a>
+                    <span th:text="${product.amount()}" class="amount"></span>
+                    <a th:href="'/basket/increase/' + ${product.id()}" style="background: dimgray" class="btn">+</a>
+                </div>
+            </div>
+        </th:block>
+        <!-- More products can be added here -->
+    </div>
+    <div class="bottom-actions">
+        <div>
+            <p th:text="${'Total price: ' + totalPrice + 'sum'}" class="total-price"></p>
+        </div>
+        <div>
+            <a href="/" class="btn">Back</a>
+            <a href="/basket/clear" style="background: red" class="btn">Clear Basket</a>
+            <a href="/order/make" th:if="${basketProducts.size()!=0}" style="background: #0c5460" class="btn">Make Order</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

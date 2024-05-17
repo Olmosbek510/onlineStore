@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awesome Shop</title>
+    <style>
+        /* Resetting default browser styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+        }
+
+        .nav-links {
+            list-style-type: none;
+        }
+
+        .nav-links li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        .nav-links li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-name {
+            margin-right: 20px;
+            color: #ffc107;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            background-color: #ffc107;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .basket-btn {
+            margin-right: 10px;
+        }
+
+        .admin-btn {
+            background-color: #ff5722;
+            margin-right: 10px;
+        }
+
+        main {
+            display: flex;
+            margin: 20px;
+        }
+
+        .sidebar {
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .products {
+            flex: 3;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .product-card {
+            flex: 1 1 300px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .product-card img {
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .product-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .product-card .price {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .add-to-basket {
+            background-color: #ffc107;
+            color: #333;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo">
+        <h1>Awesome Shop</h1>
+    </div>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="user-actions">
+        <li sec:authorize="isAuthenticated()">
+            <a th:href="'/user/profile/' + ${#authentication.name}" class="user-name" th:text="${#authentication.name}"></a>
+        </li>
+        <a href="login" sec:authorize="isAnonymous" class="btn">Login</a>
+        <a href="register" sec:authorize="isAnonymous" class="btn">Register</a>
+        <a href="/basket" class="btn basket-btn" th:text="${'Basket ' + basketSize}"></a>
+        <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn admin-btn" href="/admin">Admin Page</a>
+    </div>
+</header>
+
+<main>
+    <aside class="sidebar">
+        <h2>Categories</h2>
+        <ul class="category-links">
+            <li>
+                <a href="/?all=true">All</a>
+            </li>
+            <th:block th:each="category:${categories}">
+                <li>
+                    <a th:href="'/?categoryId='+ ${category.id}" th:text="${category.name}"></a>
+                </li>
+            </th:block>
+        </ul>
+    </aside>
+    <section class="products">
+        <th:block th:each="product:${products}">
+            <div class="product-card">
+                <img th:attr="src=@{'data:image/png;base64,' + ${product.getBase64Photo()}}" alt="" style="max-width: 500px">
+                <h3 th:text="${product.name}"></h3>
+                <p th:text="${product.price} + ' sum'" class="price"></p>
+                <a th:if="${!product.getIsAdded()}" th:href="'basket/add/' + ${product.getId()}" class="btn add-to-basket">Add to Basket</a>
+                <a style="color: white; background: #2c2616" class="btn add-to-basket" th:if="${product.getIsAdded()}">Added</a>
+            </div>
+        </th:block>
+    </section>
+</main>
+<footer>
+    <p>&copy; 2024 Awesome Shop. All rights reserved.</p>
+</footer>
+</body>
+</html>

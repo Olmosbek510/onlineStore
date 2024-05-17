@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c2616;
+            text-align: center;
+        }
+
+        .product {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .product img {
+            width: 80px;
+            height: 80px;
+            margin-right: 20px;
+            border-radius: 5px;
+        }
+
+        .product-info {
+            flex-grow: 1;
+        }
+
+        .product-info h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .product-info p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .price {
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+        }
+
+
+        .bottom-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 th:text="${'Time: ' + order.getFormattedDate()}"></h2>
+    <div class="basket">
+        <th:block th:each="product:${products}">
+            <div class="product">
+                <img th:attr="src=@{'data:image/png;base64,' + ${product.base64Photo()}}" alt="" style="max-width: 100px">
+                <div class="product-info">
+                    <h3 th:text="${product.product()}"></h3>
+                    <p th:text="${product.category()}"></p>
+                    <p th:text="${product.productPrice() + ' sum'}" class="price"></p>
+                    <p th:text="'Subtotal: ' + ${product.productPrice() * product.amount()}" class="subtotal"></p>
+                    <p th:text="'Amount: ' + ${product.amount()}" class="price"></p>
+                </div>
+            </div>
+        </th:block>
+    </div>
+    <div class="bottom-actions">
+        <div>
+            <p th:text="${'Total price: ' + totalPrice + ' sum'}" class="total-price"></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

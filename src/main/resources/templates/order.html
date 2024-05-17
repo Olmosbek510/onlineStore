@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+        }
+        .order {
+            border-bottom: 1px solid #ccc;
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .order-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .order-id {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .order-date {
+            color: #666;
+        }
+        .btn {
+            background-color: #ffc107;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+            margin: 10px;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover {
+            background-color: #ffca28;
+        }
+        .back-btn {
+            background-color: #ffc107;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            padding: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 16px;
+            text-decoration: none;
+        }
+        .back-btn:hover {
+            background-color: #ffca28;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <a href="#" class="back-btn">&#8592;</a>
+    <h2>Orders</h2>
+    <th:block th:each="order:${orders}">
+        <div class="order">
+            <div class="order-info">
+                <p th:text="${'Order ID: ' + order.getId()}" class="order-id"></p>
+                <p th:text="${'Date: ' + order.getFormattedDate()}" class="order-date"></p>
+            </div>
+            <a th:href="'/order/get/' + ${order.id}" class="btn">Get Info</a>
+        </div>
+    </th:block>
+    <a th:href="'/user/profile/' + ${#authentication.name}" class="btn back-btn">Back</a>
+</div>
+</body>
+</html>

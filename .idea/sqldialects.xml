@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/java/uz/inha/repo/AttachmentContentRepo.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/uz/inha/repo/AttachmentRepo.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/uz/inha/repo/CategoryRepo.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/uz/inha/repo/OrderProductRepo.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/uz/inha/repo/OrderRepo.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/uz/inha/repo/ProductRepo.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/uz/inha/repo/RoleRepo.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/uz/inha/repo/UserRepo.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/uz/inha/repo/UserRoleRepo1.java" dialect="GenericSQL" />
+  </component>
+</project>

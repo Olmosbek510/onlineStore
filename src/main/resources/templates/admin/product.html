@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        #sidebar {
+            background-color: #343a40;
+            color: #fff;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            padding-top: 20px;
+        }
+
+        #sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #sidebar ul li {
+            padding: 10px;
+            border-bottom: 1px solid #4e5359;
+        }
+
+        #sidebar ul li:hover {
+            background-color: #495057;
+        }
+
+        #sidebar ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        #content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #ffc107;
+            color: #fff;
+        }
+
+        .add-button {
+            background-color: #2f2b22;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .add-button:hover {
+            background-color: #3a3114;
+        }
+
+        .action-button {
+            background-color: #de1313;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .edit-button {
+            background-color: #1b8638;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .action-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div id="sidebar">
+    <ul>
+        <li><a href="/admin/product">Product</a></li>
+        <li><a href="/admin/category">Category</a></li>
+        <li><a href="/admin">Back to home</a></li>
+    </ul>
+</div>
+
+<div id="content">
+    <h1>Products</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Product Picture</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product:${products}">
+            <td>
+                <img th:attr="src=@{'data:image/png;base64,' + ${product.getPhoto()}}" alt="" style="max-width: 100px">
+            </td>
+            <td th:text="${product.name()}"></td>
+            <td th:text="${product.price()}"></td>
+            <td th:text="${product.category()}"></td>
+            <td>
+                <a th:href="'/product/edit/' + ${product.id()}" class="edit-button">Edit</a>
+                <a th:href="'/product/delete/' + ${product.id()}" class="action-button">Delete</a>
+            </td>
+        </tr>
+        <!-- Add more rows for other products -->
+        </tbody>
+    </table>
+    <a href="/product/add" class="add-button">Add Product</a>
+</div>
+
+</body>
+</html>
