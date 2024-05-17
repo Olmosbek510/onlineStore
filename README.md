@@ -1,4 +1,4 @@
-# Spring Web Application
+# Online Store web application
 
 This project is a web application developed using the Spring Framework.
 It leverages Spring MVC for handling web requests, Thymeleaf for rendering HTML views, Spring Security for securing the application, and Spring JDBC for database interactions.
