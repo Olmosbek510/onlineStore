@@ -1,7 +1,10 @@
 package uz.inha.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +16,7 @@ import uz.inha.entity.Basket;
 import uz.inha.entity.Order;
 import uz.inha.repo.OrderRepo;
 import uz.inha.service.OrderService;
+import uz.inha.service.PdfService;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -24,16 +28,43 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class OrderController {
     private final OrderService orderService;
+    private final PdfService pdfService;
     private final OrderRepo orderRepo;
 
-    @GetMapping("make")
-    public String make(HttpSession session, Principal principal) {
+    @GetMapping("/make")
+    public String make(HttpSession session, Principal principal, HttpServletResponse response) {
         Object o = session.getAttribute("basket");
         System.out.println("Order made successfully");
         if (o != null) {
             if (principal != null) {
-                orderService.makeOrder((Basket) o, principal.getName());
-                session.removeAttribute("basket");
+                try {
+                    session.removeAttribute("basket");
+                    // Create the order
+                    Order order = orderService.makeOrder((Basket) o, principal.getName());
+
+                    // Fetch products associated with the order
+                    List<BasketProductDto> products = orderRepo.getProducts(order.getId());
+
+                    // Generate the PDF
+                    byte[] pdfBytes = pdfService.generateOrderCheckout(order, products);
+
+                    // Set response headers and content type
+                    response.setContentType("application/pdf");
+                    response.setHeader("Content-Disposition", "attachment; filename=order_checkout.pdf");
+
+                    // Write PDF bytes to response output stream
+                    response.getOutputStream().write(pdfBytes);
+                    response.getOutputStream().flush();
+
+                    // Remove basket from session
+
+                    // Return null to indicate the response is handled completely
+                    return null;
+                } catch (Exception e) {
+                    e.printStackTrace(); // Log the exception
+                    // You may want to redirect to an error page or show an error message
+                    return "redirect:/error";
+                }
             } else {
                 return "redirect:/login";
             }

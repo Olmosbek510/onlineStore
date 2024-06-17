@@ -36,9 +36,6 @@ public class BasketController {
             basket.getProducts().add(new BasketProduct(productId, 1));
         }
         session.setAttribute("basket", basket);
-        basket.getProducts().forEach(System.out::println);
-        System.out.println((Integer) o);
-        System.out.println("------");
         return category != null ? "redirect:/?categoryId=" + category : "redirect:/";
     }
 

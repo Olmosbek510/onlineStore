@@ -36,6 +36,23 @@
           <element id="library" level="project" name="Maven: org.checkerframework:checker-qual:3.42.0" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:6.2.4" />
           <element id="library" level="project" name="Maven: org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.2.RELEASE" />
+          <element id="library" level="project" name="Maven: com.beust:jcommander:1.78" />
+          <element id="library" level="project" name="Maven: com.github.jai-imageio:jai-imageio-core:1.4.0" />
+          <element id="library" level="project" name="Maven: com.google.zxing:core:3.4.1" />
+          <element id="library" level="project" name="Maven: com.google.zxing:javase:3.4.1" />
+          <element id="library" level="project" name="Maven: com.itextpdf:barcodes:7.1.14" />
+          <element id="library" level="project" name="Maven: com.itextpdf:font-asian:7.1.14" />
+          <element id="library" level="project" name="Maven: com.itextpdf:forms:7.1.14" />
+          <element id="library" level="project" name="Maven: com.itextpdf:hyph:7.1.14" />
+          <element id="library" level="project" name="Maven: com.itextpdf:io:7.1.14" />
+          <element id="library" level="project" name="Maven: com.itextpdf:kernel:7.1.14" />
+          <element id="library" level="project" name="Maven: com.itextpdf:layout:7.1.14" />
+          <element id="library" level="project" name="Maven: com.itextpdf:pdfa:7.1.14" />
+          <element id="library" level="project" name="Maven: com.itextpdf:sign:7.1.14" />
+          <element id="library" level="project" name="Maven: com.itextpdf:styled-xml-parser:7.1.14" />
+          <element id="library" level="project" name="Maven: com.itextpdf:svg:7.1.14" />
+          <element id="library" level="project" name="Maven: org.bouncycastle:bcpkix-jdk15on:1.67" />
+          <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk15on:1.67" />
         </element>
       </element>
     </root>
